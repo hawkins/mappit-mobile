@@ -1,0 +1,64 @@
+.example-enter {
+  height: 0;
+}
+
+.example-enter.example-enter-active {
+  height: 18px;
+  transition: height .2s ease-in;
+}
+
+.example-leave {
+  height: 18px;
+}
+
+.example-leave.example-leave-active {
+  height: 0;
+  transition: height .2s ease-in;
+}
+
+.example-appear {
+  height: 0;
+}
+
+.example-appear.example-appear-active {
+  height: 18px;
+  transition: height .2s ease-in;
+}
+.example-appear.example-appear-active,
+.example-leave.example-leave-active,
+.example-enter.example-enter-active {
+  overflow: hidden;
+}
+
+/* Mobile */
+.example-mobile-enter {
+  height: translateX(100%);
+}
+
+.example-mobile-enter.example-enter-active {
+  transform: none;
+  transition: height .2s ease-in;
+}
+
+.example-mobile-leave {
+  transform: none;
+}
+
+.example-mobile-leave.example-leave-active {
+  transform: translateX(-100%);
+  transition: height .2s ease-in;
+}
+
+.example-mobile-appear {
+  transform: translateX(100%);
+}
+
+.example-mobile-appear.example-mobile-appear-active {
+  height: 18px;
+  transition: height .2s ease-in;
+}
+.example-mobile-appear.example-mobile-appear-active,
+.example-mobile-leave.example-mobile-leave-active,
+.example-mobile-enter.example-mobile-enter-active {
+  overflow: hidden;
+}

@@ -1,9 +1,9 @@
 import React from "react";
 import Expo from "expo";
-import { Container, Button, Text } from "native-base";
+import { Container, Button, Text, Drawer, View, Icon } from "native-base";
+import { StyleSheet } from "react-native";
 
 // Project Imports
-import Map from "./components/map";
 import firebase from "./lib/firebase";
 import HomeScreen from "./screens/HomeScreen";
 
@@ -36,19 +36,45 @@ export default class App extends React.Component {
   render() {
     const { auth, error, canceled } = this.state;
 
+    // TODO: Raise these
+    closeDrawer = () => {
+      this.drawer._root.close();
+    };
+    openDrawer = () => {
+      this.drawer._root.open();
+    };
+
     return (
-      <Container>
-        <HomeScreen />
-        <Button onPress={this.signIn.bind(this)}>
-          <Text>Sign in with Google</Text>
-        </Button>
-        <Map />
-        <Text>
-          {auth ? "Logged in" : null}
-          {error ? "An error occurred" : null}
-          {canceled ? "Canceled login" : ""}
-        </Text>
-      </Container>
+      <Drawer
+        ref={ref => (this.drawer = ref)}
+        content={
+          <Container style={styles.drawer}>
+            <Button transparent onPress={closeDrawer}>
+              <Icon name="menu" />
+            </Button>
+            <Button onPress={this.signIn.bind(this)}>
+              <Text>Sign in with Google</Text>
+            </Button>
+            <Text>
+              {auth ? "Logged in" : null}
+              {error ? "An error occurred" : null}
+              {canceled ? "Canceled login" : ""}
+            </Text>
+          </Container>
+        }
+      >
+        <Container>
+          <HomeScreen openDrawer={openDrawer} closeDrawer={closeDrawer} />
+        </Container>
+      </Drawer>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  drawer: {
+    paddingTop: 20,
+    height: "100%",
+    backgroundColor: "white"
+  }
+});

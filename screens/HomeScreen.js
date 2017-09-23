@@ -1,19 +1,18 @@
 import React from "react";
-
-import {
-  Platform,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View
-} from "react-native";
+import { Icon, View, Button } from "native-base";
 
 // Project Imports
+import Map from "../components/map";
 import HomeBanner from "../components/HomeBanner";
 
-const HomeScreen = () => (
+const HomeScreen = ({ openDrawer, closeDrawer }) => (
   <View>
-    <HomeBanner />
+    <HomeBanner>
+      <Button transparent onPress={openDrawer}>
+        <Icon name="menu" style={{ color: "white" }} />
+      </Button>
+    </HomeBanner>
+    <Map />
   </View>
 );
 
