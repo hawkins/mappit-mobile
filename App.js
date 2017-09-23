@@ -1,14 +1,23 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import Expo from "expo";
-
-// 3rd Party Imports
-import { Container } from 'native-base';
+import { Container, Button, Text } from "native-base";
 
 // Project Imports
+import Map from "./components/map";
+import firebase from "./lib/firebase";
 import HomeScreen from './screens/HomeScreen';
 
 export default class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      error: false,
+      auth: false,
+      canceled: false
+    };
+  }
+
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -16,20 +25,30 @@ export default class App extends React.Component {
     });
   }
 
+  async signIn() {
+    const result = await firebase.signInWithGoogle();
+
+    if (result.error) this.setState({ error: true });
+    else if (result.canceled) this.setState({ canceled: true });
+    else this.setState({ auth: true });
+  }
+
   render() {
+    const { auth, error, canceled } = this.state;
+
     return (
       <Container>
         <HomeScreen />
+        <Button onPress={this.signIn.bind(this)}>
+          <Text>Sign in with Google</Text>
+        </Button>
+        <Map />
+        <Text>
+          {auth ? "Logged in" : null}
+          {error ? "An error occurred" : null}
+          {canceled ? "Canceled login" : ""}
+        </Text>
       </Container>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
