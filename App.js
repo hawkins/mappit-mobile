@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Expo from "expo";
+import { Container, Header, Title } from "native-base";
 
 export default class App extends React.Component {
   async componentWillMount() {
@@ -12,11 +13,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Container>
+        <Header>
+          <Title>Mappit</Title>
+        </Header>
+        <View style={styles.container}>
+          <Text>Open up App.js to start working on your app!</Text>
+          <Text>Changes you make will automatically reload.</Text>
+          <Text>Shake your phone to open the developer menu.</Text>
+        </View>
+      </Container>
     );
   }
 }
