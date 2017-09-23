@@ -2,6 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Expo from "expo";
 
+// 3rd Party Imports
+import { Container } from 'native-base';
+
+// Project Imports
+import HomeScreen from './screens/HomeScreen';
+
 export default class App extends React.Component {
   async componentWillMount() {
     await Expo.Font.loadAsync({
@@ -12,11 +18,9 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
+      <Container>
+        <HomeScreen />
+      </Container>
     );
   }
 }
