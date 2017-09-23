@@ -1,23 +1,20 @@
-import React from 'react';
+import React from "react";
 
 import {
-    Platform,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    Text,
-    View,
-  } from 'react-native';
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  View
+} from "react-native";
 
 // Project Imports
-import HomeBanner from '../banner/HomeBanner';
+import HomeBanner from "../components/HomeBanner";
 
 const HomeScreen = () => (
-    <ScrollView>
-        <HomeBanner />
-        <Text>Hello World</Text>
-    </ScrollView>
+  <View>
+    <HomeBanner />
+  </View>
 );
 
-
-export default () => <HomeScreen />;
+export default HomeScreen;

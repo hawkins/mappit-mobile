@@ -5,7 +5,7 @@ import { Container, Button, Text } from "native-base";
 // Project Imports
 import Map from "./components/map";
 import firebase from "./lib/firebase";
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from "./screens/HomeScreen";
 
 export default class App extends React.Component {
   constructor() {
