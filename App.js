@@ -1,8 +1,11 @@
 import React from "react";
 import Expo from "expo";
-import { Container, Header, Title, Button, Text } from "native-base";
+import { Container, Button, Text } from "native-base";
+
+// Project Imports
 import Map from "./components/map";
 import firebase from "./lib/firebase";
+import HomeScreen from './screens/HomeScreen';
 
 export default class App extends React.Component {
   constructor() {
@@ -35,9 +38,7 @@ export default class App extends React.Component {
 
     return (
       <Container>
-        <Header>
-          <Title>Mappit</Title>
-        </Header>
+        <HomeScreen />
         <Button onPress={this.signIn.bind(this)}>
           <Text>Sign in with Google</Text>
         </Button>
