@@ -19,13 +19,13 @@ class HomeScreen extends React.Component {
 
     return (
       <Container>
-        <HomeBanner>
+        <HomeBanner store={store}>
           <Button transparent onPress={openDrawer}>
             <Icon name="menu" style={{ color: "white" }} />
           </Button>
         </HomeBanner>
         <Container>
-          <Map />
+          <Map store={store} />
         </Container>
         <Fab
           active={this.state.active}
