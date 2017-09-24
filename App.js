@@ -26,8 +26,8 @@ export default class App extends React.Component {
   }
 
   async signIn() {
-    const result = await firebase.signInWithGoogle();
-
+    const result = await firebase.getTopologys();
+    console.log(result);
     if (result.error) this.setState({ error: true });
     else if (result.canceled) this.setState({ canceled: true });
     else this.setState({ auth: true });
