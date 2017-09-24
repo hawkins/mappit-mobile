@@ -3,8 +3,6 @@ import Expo from "expo";
 import { Container, Button, Text, Drawer, View, Icon } from "native-base";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react";
-
-// Project Imports
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
 import TopologyScreen from "./screens/TopologyScreen";
@@ -26,7 +24,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    // TODO: Raise these
     closeDrawer = () => {
       this.drawer._root.close();
     };

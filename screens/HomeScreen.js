@@ -29,34 +29,37 @@ class HomeScreen extends React.Component {
           <Map store={store} />
         </Container>
 
-        <Fab
-          active={this.state.active}
-          direction="up"
-          style={{ backgroundColor: "#5067FF" }}
-          position="bottomRight"
-          onPress={() => this.setState({ active: !this.state.active })}
-        >
-          <Icon name="md-add" />
-          <Button
-            onPress={() => {
-              store.addingPin = !store.addingPin;
-              console.log("Adding pin:", store.addingPin);
+        {/* Don't show fab if we're not logged in */}
+        {!store.user ? null : (
+          <Fab
+            active={this.state.active}
+            direction="up"
+            style={{ backgroundColor: "#5067FF" }}
+            position="bottomRight"
+            onPress={() => this.setState({ active: !this.state.active })}
+          >
+            <Icon name="md-add" />
+            <Button
+              onPress={() => {
+                store.addingPin = !store.addingPin;
+                console.log("Adding pin:", store.addingPin);
 
-              store.screen = "post";
-            }}
-            style={{ backgroundColor: "#34A34F" }}
-          >
-            <Icon name="ios-pin" style={{ width: 13 }} />
-          </Button>
-          <Button
-            onPress={() => {
-              store.screen = "topology";
-            }}
-            style={{ backgroundColor: "#DD5144" }}
-          >
-            <Icon name="ios-list" style={{ width: 13 }} />
-          </Button>
-        </Fab>
+                store.screen = "post";
+              }}
+              style={{ backgroundColor: "#34A34F" }}
+            >
+              <Icon name="ios-pin" style={{ width: 13 }} />
+            </Button>
+            <Button
+              onPress={() => {
+                store.screen = "topology";
+              }}
+              style={{ backgroundColor: "#DD5144" }}
+            >
+              <Icon name="ios-list" style={{ width: 13 }} />
+            </Button>
+          </Fab>
+        )}
       </Container>
     );
   }
