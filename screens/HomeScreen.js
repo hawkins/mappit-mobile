@@ -48,7 +48,12 @@ class HomeScreen extends React.Component {
           >
             <Icon name="ios-pin" style={{ width: 13 }} />
           </Button>
-          <Button style={{ backgroundColor: "#DD5144" }}>
+          <Button
+            onPress={() => {
+              store.screen = "topology";
+            }}
+            style={{ backgroundColor: "#DD5144" }}
+          >
             <Icon name="ios-list" style={{ width: 13 }} />
           </Button>
         </Fab>

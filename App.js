@@ -7,6 +7,7 @@ import { observer } from "mobx-react";
 // Project Imports
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
+import TopologyScreen from "./screens/TopologyScreen";
 import Store from "./lib/store";
 
 const store = new Store();
@@ -89,6 +90,9 @@ export default class App extends React.Component {
             />
           ) : null}
           {store.screen === "post" ? <PostScreen store={store} /> : null}
+          {store.screen === "topology" ? (
+            <TopologyScreen store={store} />
+          ) : null}
         </Container>
       </Drawer>
     );
