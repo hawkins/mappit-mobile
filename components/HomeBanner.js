@@ -1,16 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { Platform, StyleSheet } from "react-native";
-import {
-  Header,
-  Left,
-  Body,
-  Right,
-  Button,
-  Icon,
-  Title,
-  Thumbnail
-} from "native-base";
+import { Header, Left, Body, Right, Button, Icon, Title } from "native-base";
 
 @observer
 export default class HomeBanner extends React.Component {
@@ -21,14 +12,44 @@ export default class HomeBanner extends React.Component {
         <Body>
           <Title style={styles.title}>
             {this.props.store.currentTopology
-              ? this.props.store.currentTopology.name
+              ? this.props.store.currentTopology.key
               : "Mappit"}
           </Title>
         </Body>
         <Right>
-          {this.props.store.user ? (
-            <Thumbnail source={{ uri: this.props.store.user.photoURL }} />
-          ) : null}
+          {this.props.store.user && this.props.store.currentTopology ? (
+            this.props.store.subscribed ? (
+              <Button
+                transparent
+                disabled={!this.props.store.user}
+                onPress={() => {
+                  this.props.store.unsubscribeToCurrentTopology();
+                  this.forceUpdate();
+                }}
+              >
+                <Icon
+                  name="ios-checkmark-circle-outline"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            ) : (
+              <Button
+                transparent
+                disabled={!this.props.store.user}
+                onPress={() => {
+                  this.props.store.subscribeToCurrentTopology();
+                  this.forceUpdate();
+                }}
+              >
+                <Icon
+                  name="ios-remove-circle-outline"
+                  style={{ color: "white" }}
+                />
+              </Button>
+            )
+          ) : (
+            <Right />
+          )}
         </Right>
       </Header>
     );
