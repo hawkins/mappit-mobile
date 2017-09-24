@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react";
 import { Platform, StyleSheet } from "react-native";
 import { Header, Left, Body, Right, Button, Icon, Title } from "native-base";
+import { Constants } from "expo";
 
 @observer
 export default class HomeBanner extends React.Component {
@@ -59,7 +60,8 @@ export default class HomeBanner extends React.Component {
 const styles = StyleSheet.create({
   banner: {
     backgroundColor: "#3F51B5",
-    padding: 16
+    padding: 16,
+    marginTop: Constants.statusBarHeight
     // marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
   body: {

@@ -17,6 +17,7 @@ import {
   View
 } from "native-base";
 import { StyleSheet } from "react-native";
+import { Constants } from "expo";
 
 export default class PostScreen extends React.Component {
   constructor() {
@@ -90,7 +91,8 @@ export default class PostScreen extends React.Component {
 const styles = StyleSheet.create({
   banner: {
     backgroundColor: "#3F51B5",
-    padding: 16
+    padding: 16,
+    marginTop: Constants.statusBarHeight
     // marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
   title: {

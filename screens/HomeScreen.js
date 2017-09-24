@@ -4,6 +4,7 @@ import { Icon, View, Button, Fab, Container, Content } from "native-base";
 // Project Imports
 import Map from "../components/map";
 import HomeBanner from "../components/HomeBanner";
+import { Constants } from "expo";
 
 class HomeScreen extends React.Component {
   constructor() {
@@ -19,7 +20,10 @@ class HomeScreen extends React.Component {
 
     return (
       <Container>
-        <HomeBanner store={store}>
+        <HomeBanner
+          store={store}
+          style={{ marginTop: Constants.statusBarHeight }}
+        >
           <Button transparent onPress={openDrawer}>
             <Icon name="menu" style={{ color: "white" }} />
           </Button>
