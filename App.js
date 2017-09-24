@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     marginTop: 15
   },
   drawer: {
-    paddingTop: 20,
+    marginTop: Expo.Constants.statusBarHeight,
     height: "100%",
     backgroundColor: "white"
   },
