@@ -1,6 +1,9 @@
 import React from "react";
 import { MapView } from "expo";
 import { observer } from "mobx-react";
+import { Constants, Location, Permissions } from 'expo';
+
+const GEOLOCATION_OPTIONS = { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 };
 
 @observer
 export default class Map extends React.Component {
@@ -8,7 +11,8 @@ export default class Map extends React.Component {
     super();
 
     this.state = {
-      coordinate: null
+      coordinate: null,
+      location: { coords: {latitude: 0, longitude: 0}},
     };
   }
 
@@ -29,6 +33,20 @@ export default class Map extends React.Component {
     this.forceUpdate();
   }
 
+  locationChanged = (location) => {
+    region = {
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.0922,
+      longitudeDelta: 0.0421
+    },
+    this.setState({location, region})
+  }
+
+  componentWillMount() {
+    Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
+  }
+
   render() {
     const { store } = this.props;
 
@@ -36,12 +54,8 @@ export default class Map extends React.Component {
       <MapView
         onPress={e => this.onMapPress(e)}
         style={{ width: "100%", height: "100%" }}
-        initialRegion={{
-          latitude: 33.454805,
-          longitude: -88.79003,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421
-        }}
+        region={this.state.region}
+        showsUserLocation={true}
       >
         {!store.currentTopology
           ? null
