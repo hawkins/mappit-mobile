@@ -40,17 +40,20 @@ export default class Map extends React.Component {
   }
 
   locationChanged = location => {
-    (region = {
+    const region = {
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421
-    }),
-      this.setState({ location, region });
+    };
+    this.setState({ location, region });
   };
 
-  componentWillMount() {
-    Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
+  async componentDidMount() {
+    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    if (status === "granted") {
+      Location.watchPositionAsync(GEOLOCATION_OPTIONS, this.locationChanged);
+    }
   }
 
   render() {
