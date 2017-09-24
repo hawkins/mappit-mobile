@@ -11,8 +11,8 @@ export default class Map extends React.Component {
       <MapView
         style={{ width: "100%", height: "100%" }}
         initialRegion={{
-          latitude: 33.4552,
-          longitude: -88.7944,
+          latitude: 32.3361938,
+          longitude: -90.1748317,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         }}
