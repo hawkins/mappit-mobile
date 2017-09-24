@@ -46,8 +46,8 @@ export default class PostScreen extends React.Component {
             <Text>Click Submit to continue to select pin location</Text>
             <Button
               onPress={() => {
-                store.newPinTitle = this.state.title;
-                store.newPinContent = this.state.content;
+                store.newPostTitle = this.state.title;
+                store.newPostContent = this.state.content;
                 store.screen = "home";
               }}
             >

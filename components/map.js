@@ -15,14 +15,18 @@ export default class Map extends React.Component {
   onMapPress(e) {
     if (!this.props.store.addingPin) return;
 
-    this.props.store.newPinCoordinate = e.nativeEvent.coordinate;
+    this.props.store.newPostCoordinate = e.nativeEvent.coordinate;
     this.state.coordinate = e.nativeEvent.coordinate;
+
+    // Submit the pin
+    this.props.store.addingPin = false;
+    this.props.store.createPin();
+
+    // Reset state
+    this.setState({ coordinate: null });
 
     // Crying both internally and externally
     this.forceUpdate();
-
-    // TODO: Submit the pin
-    this.props.store.addingPin = false;
   }
 
   render() {
@@ -33,8 +37,8 @@ export default class Map extends React.Component {
         onPress={e => this.onMapPress(e)}
         style={{ width: "100%", height: "100%" }}
         initialRegion={{
-          latitude: 32.3361938,
-          longitude: -90.1748317,
+          latitude: 33.454805,
+          longitude: -88.79003,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421
         }}
@@ -54,10 +58,10 @@ export default class Map extends React.Component {
             ))}
         {!this.state.coordinate ? null : (
           <MapView.Marker
-            key={store.newPinTitle}
+            key={store.newPostTitle}
             coordinate={this.state.coordinate}
-            title={store.newPinTitle}
-            description={store.newPinContent}
+            title={store.newPostTitle}
+            description={store.newPostContent}
           />
         )}
       </MapView>
