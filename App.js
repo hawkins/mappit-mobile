@@ -2,22 +2,16 @@ import React from "react";
 import Expo from "expo";
 import { Container, Button, Text, Drawer, View, Icon } from "native-base";
 import { StyleSheet } from "react-native";
+import { observer } from "mobx-react";
 
 // Project Imports
-import firebase from "./lib/firebase";
 import HomeScreen from "./screens/HomeScreen";
+import Store from "./lib/store";
 
+const store = new Store();
+
+@observer
 export default class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      error: false,
-      auth: false,
-      canceled: false
-    };
-  }
-
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -26,16 +20,10 @@ export default class App extends React.Component {
   }
 
   async signIn() {
-    const result = await firebase.signInWithGoogle();
-
-    if (result.error) this.setState({ error: true });
-    else if (result.canceled) this.setState({ canceled: true });
-    else this.setState({ auth: true });
+    await store.login();
   }
 
   render() {
-    const { auth, error, canceled } = this.state;
-
     // TODO: Raise these
     closeDrawer = () => {
       this.drawer._root.close();
@@ -52,19 +40,23 @@ export default class App extends React.Component {
             <Button transparent onPress={closeDrawer}>
               <Icon name="menu" />
             </Button>
-            <Button onPress={this.signIn.bind(this)}>
-              <Text>Sign in with Google</Text>
-            </Button>
-            <Text>
-              {auth ? "Logged in" : null}
-              {error ? "An error occurred" : null}
-              {canceled ? "Canceled login" : ""}
-            </Text>
+
+            {store.user ? (
+              <Text>Welcome back, {store.user.displayName}</Text>
+            ) : (
+              <Button onPress={this.signIn.bind(this)}>
+                <Text>Sign in with Google</Text>
+              </Button>
+            )}
           </Container>
         }
       >
         <Container>
-          <HomeScreen openDrawer={openDrawer} closeDrawer={closeDrawer} />
+          <HomeScreen
+            openDrawer={openDrawer}
+            closeDrawer={closeDrawer}
+            store={store}
+          />
         </Container>
       </Drawer>
     );

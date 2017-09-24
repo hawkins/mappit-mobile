@@ -15,7 +15,7 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    const { openDrawer, closeDrawer } = this.props;
+    const { openDrawer, closeDrawer, store } = this.props;
 
     return (
       <Container>
