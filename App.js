@@ -18,9 +18,12 @@ import { observer } from "mobx-react";
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
 import TopologyScreen from "./screens/TopologyScreen";
+import CommentScreen from "./screens/CommentScreen";
 import Store from "./lib/store";
 
 const store = new Store();
+
+console.disableYellowBox = true;
 
 @observer
 export default class App extends React.Component {
@@ -152,6 +155,7 @@ export default class App extends React.Component {
           {store.screen === "topology" ? (
             <TopologyScreen store={store} />
           ) : null}
+          {store.screen === "comment" ? <CommentScreen store={store} /> : null}
         </Container>
       </Drawer>
     );

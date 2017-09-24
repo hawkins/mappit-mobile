@@ -33,7 +33,9 @@ export default class Map extends React.Component {
     this.props.store.createPin();
 
     // Reset state
-    this.setState({ coordinate: null });
+    try {
+      this.setState({ coordinate: null });
+    } catch (e) {}
 
     // Crying both internally and externally
     this.forceUpdate();
@@ -46,7 +48,9 @@ export default class Map extends React.Component {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421
     };
-    this.setState({ location, region });
+    try {
+      this.setState({ location, region });
+    } catch (e) {}
   };
 
   async componentDidMount() {
@@ -79,7 +83,13 @@ export default class Map extends React.Component {
                 title={post.title}
                 description={post.content}
               >
-                <MapView.Callout tooltip>
+                <MapView.Callout
+                  tooltip
+                  onPress={() => {
+                    console.log("Clicked on callout");
+                    store.loadComments(post);
+                  }}
+                >
                   <View
                     style={{
                       backgroundColor: "white",
