@@ -68,7 +68,7 @@ export default class App extends React.Component {
                   <Button
                     transparent
                     onPress={async () => {
-                      await store.loadTopology("Home");
+                      await store.loadTopologys("Home");
                       closeDrawer();
                     }}
                   >
