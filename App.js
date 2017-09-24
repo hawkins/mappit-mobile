@@ -1,23 +1,17 @@
 import React from "react";
 import Expo from "expo";
-import { Container, Button, Text } from "native-base";
+import { Container, Button, Text, Drawer, View, Icon } from "native-base";
+import { StyleSheet } from "react-native";
+import { observer } from "mobx-react";
 
 // Project Imports
-import Map from "./components/map";
-import firebase from "./lib/firebase";
-import HomeScreen from './screens/HomeScreen';
+import HomeScreen from "./screens/HomeScreen";
+import Store from "./lib/store";
 
+const store = new Store();
+
+@observer
 export default class App extends React.Component {
-  constructor() {
-    super();
-
-    this.state = {
-      error: false,
-      auth: false,
-      canceled: false
-    };
-  }
-
   async componentWillMount() {
     await Expo.Font.loadAsync({
       Roboto: require("native-base/Fonts/Roboto.ttf"),
@@ -26,29 +20,64 @@ export default class App extends React.Component {
   }
 
   async signIn() {
-    const result = await firebase.getTopologys();
-    console.log(result);
-    if (result.error) this.setState({ error: true });
-    else if (result.canceled) this.setState({ canceled: true });
-    else this.setState({ auth: true });
+    await store.login();
   }
 
   render() {
-    const { auth, error, canceled } = this.state;
+    // TODO: Raise these
+    closeDrawer = () => {
+      this.drawer._root.close();
+    };
+    openDrawer = () => {
+      this.drawer._root.open();
+    };
 
     return (
-      <Container>
-        <HomeScreen />
-        <Button onPress={this.signIn.bind(this)}>
-          <Text>Sign in with Google</Text>
-        </Button>
-        <Map />
-        <Text>
-          {auth ? "Logged in" : null}
-          {error ? "An error occurred" : null}
-          {canceled ? "Canceled login" : ""}
-        </Text>
-      </Container>
+      <Drawer
+        ref={ref => (this.drawer = ref)}
+        content={
+          <Container style={styles.drawer}>
+            <Button transparent onPress={closeDrawer}>
+              <Icon name="menu" />
+            </Button>
+
+            {store.user ? (
+              <Text>Welcome back, {store.user.displayName}</Text>
+            ) : (
+              <Button onPress={this.signIn.bind(this)}>
+                <Text>Sign in with Google</Text>
+              </Button>
+            )}
+
+            {store.topologys !== undefined ? (
+              <View>
+                <Text>Topologies</Text>
+                {store.topologys.map(t => (
+                  <Button transparent key={t}>
+                    <Text>{t}</Text>
+                  </Button>
+                ))}
+              </View>
+            ) : null}
+          </Container>
+        }
+      >
+        <Container>
+          <HomeScreen
+            openDrawer={openDrawer}
+            closeDrawer={closeDrawer}
+            store={store}
+          />
+        </Container>
+      </Drawer>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  drawer: {
+    paddingTop: 20,
+    height: "100%",
+    backgroundColor: "white"
+  }
+});
