@@ -62,6 +62,7 @@ export default class Map extends React.Component {
         style={{ width: "100%", height: "100%" }}
         region={this.state.region}
         showsUserLocation={true}
+        rotateEnabled={false}
       >
         {!store.currentTopology
           ? null
