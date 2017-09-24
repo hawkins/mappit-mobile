@@ -13,7 +13,8 @@ import {
   Left,
   Right,
   Body,
-  Icon
+  Icon,
+  View
 } from "native-base";
 import { StyleSheet } from "react-native";
 
@@ -65,16 +66,20 @@ export default class PostScreen extends React.Component {
                 onChangeText={content => this.setState({ content })}
               />
             </Item>
-            <Text>Click Submit to continue to select pin location</Text>
-            <Button
-              onPress={() => {
-                store.newPostTitle = this.state.title;
-                store.newPostContent = this.state.content;
-                store.screen = "home";
-              }}
-            >
-              <Text>Submit</Text>
-            </Button>
+            <View style={styles.viewContainer}>
+              <Text>Click 'Submit' to create your new Post.</Text>
+            </View>
+            <View style={styles.viewContainer}>
+              <Button
+                onPress={() => {
+                  store.newPostTitle = this.state.title;
+                  store.newPostContent = this.state.content;
+                  store.screen = "home";
+                }}
+              >
+                <Text>Submit</Text>
+              </Button>
+            </View>
           </Form>
         </Content>
       </Container>
@@ -92,5 +97,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: "#fff",
     margin: 8
+  },
+  text: {
+    fontSize: 10,
+    margin: 5
+  },
+  viewContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 10
+  },
+  button: {
+    width: "50%"
   }
 });
