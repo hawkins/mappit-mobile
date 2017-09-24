@@ -48,6 +48,33 @@ export default class App extends React.Component {
                 <Text>Sign in with Google</Text>
               </Button>
             )}
+
+            {store.topologys !== undefined ? (
+              <View>
+                <Text>Topologies</Text>
+                <Button
+                  transparent
+                  onPress={async () => {
+                    await store.loadTopology("Home");
+                    closeDrawer();
+                  }}
+                >
+                  <Text>Home</Text>
+                </Button>
+                {store.topologys.map(t => (
+                  <Button
+                    transparent
+                    key={t}
+                    onPress={async () => {
+                      await store.loadTopology(t);
+                      closeDrawer();
+                    }}
+                  >
+                    <Text>{t}</Text>
+                  </Button>
+                ))}
+              </View>
+            ) : null}
           </Container>
         }
       >
