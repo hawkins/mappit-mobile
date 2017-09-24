@@ -48,6 +48,17 @@ export default class App extends React.Component {
                 <Text>Sign in with Google</Text>
               </Button>
             )}
+
+            {store.topologys !== undefined ? (
+              <View>
+                <Text>Topologies</Text>
+                {store.topologys.map(t => (
+                  <Button transparent key={t}>
+                    <Text>{t}</Text>
+                  </Button>
+                ))}
+              </View>
+            ) : null}
           </Container>
         }
       >
