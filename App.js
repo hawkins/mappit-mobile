@@ -1,6 +1,14 @@
 import React from "react";
 import Expo from "expo";
-import { Container, Button, Text, Drawer, View, Icon } from "native-base";
+import {
+  Container,
+  Button,
+  Text,
+  Drawer,
+  View,
+  Icon,
+  Thumbnail
+} from "native-base";
 import { StyleSheet } from "react-native";
 import { observer } from "mobx-react";
 import HomeScreen from "./screens/HomeScreen";
@@ -40,17 +48,21 @@ export default class App extends React.Component {
               <Icon name="menu" />
             </Button>
 
+            <Text style={styles.section}>My Profile</Text>
             {store.user ? (
-              <Text>Welcome back, {store.user.displayName}</Text>
+              <View style={styles.padded}>
+                <Thumbnail source={{ uri: store.user.photoURL }} />
+                <Text>Welcome back, {store.user.displayName}.</Text>
+              </View>
             ) : (
-              <Button onPress={this.signIn.bind(this)}>
+              <Button style={styles.button} onPress={this.signIn.bind(this)}>
                 <Text>Sign in with Google</Text>
               </Button>
             )}
 
             {store.topologys !== undefined ? (
               <View>
-                <Text>Topologies</Text>
+                <Text style={styles.section}>Topologies</Text>
                 <Button
                   transparent
                   onPress={async () => {
@@ -97,6 +109,16 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  padded: {
+    padding: 15
+  },
+  section: {
+    padding: 15,
+    fontWeight: "bold"
+  },
+  button: {
+    margin: 15
+  },
   drawer: {
     paddingTop: 20,
     height: "100%",

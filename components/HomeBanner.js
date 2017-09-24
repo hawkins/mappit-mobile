@@ -1,7 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { Platform, StyleSheet } from "react-native";
-import { Header, Left, Body, Right, Button, Icon, Title } from "native-base";
+import {
+  Header,
+  Left,
+  Body,
+  Right,
+  Button,
+  Icon,
+  Title,
+  Thumbnail
+} from "native-base";
 
 @observer
 export default class HomeBanner extends React.Component {
@@ -16,7 +25,11 @@ export default class HomeBanner extends React.Component {
               : "Mappit"}
           </Title>
         </Body>
-        <Right />
+        <Right>
+          {this.props.store.user ? (
+            <Thumbnail source={{ uri: this.props.store.user.photoURL }} />
+          ) : null}
+        </Right>
       </Header>
     );
   }
