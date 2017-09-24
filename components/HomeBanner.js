@@ -9,7 +9,7 @@ export default class HomeBanner extends React.Component {
     return (
       <Header style={styles.banner}>
         {this.props.children ? <Left>{this.props.children}</Left> : null}
-        <Body>
+        <Body style={styles.body}>
           <Title style={styles.title}>
             {this.props.store.currentTopology
               ? this.props.store.currentTopology.key
@@ -62,9 +62,11 @@ const styles = StyleSheet.create({
     padding: 16
     // marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
+  body: {
+    flex: 3
+  },
   title: {
     fontSize: 18,
-    color: "#fff",
-    margin: 8
+    color: "#fff"
   }
 });
