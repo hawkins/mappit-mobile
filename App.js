@@ -54,7 +54,7 @@ export default class App extends React.Component {
               {store.user ? (
                 <View style={styles.padded}>
                   <Thumbnail source={{ uri: store.user.photoURL }} />
-                  <Text>Welcome back, {store.user.displayName}.</Text>
+                  <Text style={styles.nameText}>Welcome back, {store.user.displayName}.</Text>
                 </View>
               ) : (
                 <Button style={styles.button} onPress={this.signIn.bind(this)}>
@@ -144,5 +144,8 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     height: "100%",
     backgroundColor: "white"
+  },
+  nameText: {
+    paddingTop: 15
   }
 });
