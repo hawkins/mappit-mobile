@@ -9,7 +9,7 @@ import {
   Icon,
   Thumbnail
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 import { observer } from "mobx-react";
 import HomeScreen from "./screens/HomeScreen";
 import PostScreen from "./screens/PostScreen";
@@ -44,48 +44,69 @@ export default class App extends React.Component {
         ref={ref => (this.drawer = ref)}
         content={
           <Container style={styles.drawer}>
-            <Button transparent onPress={closeDrawer}>
-              <Icon name="menu" />
-            </Button>
-
-            <Text style={styles.section}>My Profile</Text>
-            {store.user ? (
-              <View style={styles.padded}>
-                <Thumbnail source={{ uri: store.user.photoURL }} />
-                <Text>Welcome back, {store.user.displayName}.</Text>
-              </View>
-            ) : (
-              <Button style={styles.button} onPress={this.signIn.bind(this)}>
-                <Text>Sign in with Google</Text>
+            <ScrollView>
+              <Button transparent onPress={closeDrawer}>
+                <Icon name="menu" />
               </Button>
-            )}
 
-            {store.topologys !== undefined ? (
-              <View>
-                <Text style={styles.section}>Topologies</Text>
-                <Button
-                  transparent
-                  onPress={async () => {
-                    await store.loadTopology("Home");
-                    closeDrawer();
-                  }}
-                >
-                  <Text>Home</Text>
+              <Text style={styles.section}>My Profile</Text>
+
+              {store.user ? (
+                <View style={styles.padded}>
+                  <Thumbnail source={{ uri: store.user.photoURL }} />
+                  <Text>Welcome back, {store.user.displayName}.</Text>
+                </View>
+              ) : (
+                <Button style={styles.button} onPress={this.signIn.bind(this)}>
+                  <Text>Sign in with Google</Text>
                 </Button>
-                {store.topologys.map(t => (
+              )}
+
+              {store.user !== null && store.myTopologys !== null ? (
+                <View>
+                  <Text style={styles.section}>My Topographies</Text>
                   <Button
                     transparent
-                    key={t}
                     onPress={async () => {
-                      await store.loadTopology(t);
+                      await store.loadTopology("Home");
                       closeDrawer();
                     }}
                   >
-                    <Text>{t}</Text>
+                    <Text>Home</Text>
                   </Button>
-                ))}
-              </View>
-            ) : null}
+                  {store.myTopologys.map(t => (
+                    <Button
+                      transparent
+                      key={t}
+                      onPress={async () => {
+                        await store.loadTopology(t);
+                        closeDrawer();
+                      }}
+                    >
+                      <Text>{t}</Text>
+                    </Button>
+                  ))}
+                </View>
+              ) : null}
+
+              {store.topologys !== undefined ? (
+                <View>
+                  <Text style={styles.section}>All Topographies</Text>
+                  {store.topologys.map(t => (
+                    <Button
+                      transparent
+                      key={t}
+                      onPress={async () => {
+                        await store.loadTopology(t);
+                        closeDrawer();
+                      }}
+                    >
+                      <Text>{t}</Text>
+                    </Button>
+                  ))}
+                </View>
+              ) : null}
+            </ScrollView>
           </Container>
         }
       >

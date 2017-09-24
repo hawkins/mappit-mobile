@@ -34,7 +34,7 @@ export default class PostScreen extends React.Component {
         <Content>
           <Form>
             <Item floatingLabel>
-              <Label>Topology Name</Label>
+              <Label>New Topography's Name</Label>
               <Input onChangeText={name => this.setState({ name })} />
             </Item>
             <Item floatingLabel>
