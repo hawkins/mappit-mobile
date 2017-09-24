@@ -9,7 +9,11 @@ import {
   Label,
   Title,
   Button,
-  Text
+  Text,
+  Body,
+  Left,
+  Right,
+  Icon
 } from "native-base";
 import { StyleSheet } from "react-native";
 
@@ -29,7 +33,24 @@ export default class PostScreen extends React.Component {
     return (
       <Container>
         <Header style={styles.banner}>
-          <Title style={styles.title}>New Topology</Title>
+          <Left>
+            <Button
+              onPress={() => {
+                this.props.store.screen = "home";
+              }}
+              transparent
+            >
+              <Icon
+                ios="ios-arrow-back"
+                android="md-arrow-back"
+                style={{ color: "white" }}
+              />
+            </Button>
+          </Left>
+          <Body>
+            <Title style={styles.title}>New Topography</Title>
+          </Body>
+          <Right />
         </Header>
         <Content>
           <Form>
