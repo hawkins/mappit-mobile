@@ -17,6 +17,7 @@ import {
   View
 } from "native-base";
 import { StyleSheet } from "react-native";
+import { Constants } from "expo";
 
 export default class PostScreen extends React.Component {
   constructor() {
@@ -60,14 +61,14 @@ export default class PostScreen extends React.Component {
               <Input onChangeText={name => this.setState({ name })} />
             </Item>
             <Item floatingLabel>
-              <Label numberOfLines={20}>Topology description</Label>
+              <Label numberOfLines={20}>Topography description</Label>
               <Input
                 onChangeText={description => this.setState({ description })}
               />
             </Item>
 
             <View style={styles.viewContainer}>
-              <Text>Click 'Submit' to create a new Topology</Text>
+              <Text>Click 'Submit' to create a new Topography</Text>
             </View>
             <View style={styles.viewContainer}>
               <Button
@@ -93,14 +94,16 @@ export default class PostScreen extends React.Component {
 
 const styles = StyleSheet.create({
   banner: {
-    backgroundColor: "#3F51B5",
-    padding: 16
+    backgroundColor: "rgb(206, 44, 40)",
+    padding: 16,
+    marginTop: Constants.statusBarHeight
     // marginTop: Platform.OS === 'ios' ? 20 : 0,
   },
   title: {
     fontSize: 18,
     color: "#fff",
-    margin: 5
+    margin: 5,
+    flex: 3
   },
   text: {
     fontSize: 10,

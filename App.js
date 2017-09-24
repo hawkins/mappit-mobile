@@ -7,7 +7,11 @@ import {
   Drawer,
   View,
   Icon,
-  Thumbnail
+  Thumbnail,
+  Header,
+  Left,
+  Right,
+  Body
 } from "native-base";
 import { StyleSheet, ScrollView } from "react-native";
 import { observer } from "mobx-react";
@@ -45,16 +49,24 @@ export default class App extends React.Component {
         content={
           <Container style={styles.drawer}>
             <ScrollView>
-              <Button transparent onPress={closeDrawer}>
-                <Icon name="menu" />
-              </Button>
+              <Header style={styles.banner}>
+                <Left>
+                  <Button transparent onPress={closeDrawer}>
+                    <Icon name="menu" style={styles.menuButton} />
+                  </Button>
+                </Left>
+                <Body />
+                <Right />
+              </Header>
 
               <Text style={styles.section}>My Profile</Text>
 
               {store.user ? (
                 <View style={styles.padded}>
                   <Thumbnail source={{ uri: store.user.photoURL }} />
-                  <Text style={styles.nameText}>Welcome back, {store.user.displayName}.</Text>
+                  <Text style={styles.nameText}>
+                    Welcome back, {store.user.displayName}.
+                  </Text>
                 </View>
               ) : (
                 <Button style={styles.button} onPress={this.signIn.bind(this)}>
@@ -62,28 +74,37 @@ export default class App extends React.Component {
                 </Button>
               )}
 
+              <Button
+                transparent
+                onPress={async () => {
+                  await store.loadTopology("Home");
+                  closeDrawer();
+                }}
+              >
+                <Text>Go Home</Text>
+              </Button>
+
               {store.user !== null && store.myTopologys !== null ? (
                 <View>
                   <Text style={styles.section}>My Topographies</Text>
-                  <Button
-                    transparent
-                    onPress={async () => {
-                      await store.loadTopologys("Home");
-                      closeDrawer();
-                    }}
-                  >
-                    <Text>Home</Text>
-                  </Button>
                   {store.myTopologys.map(t => (
                     <Button
                       transparent
-                      key={t}
+                      key={t.key}
                       onPress={async () => {
-                        await store.loadTopology(t);
+                        await store.loadTopology(t.key);
                         closeDrawer();
                       }}
                     >
-                      <Text>{t}</Text>
+                      <Thumbnail
+                        small
+                        source={{ uri: t.ownerPic }}
+                        style={styles.thumbnail}
+                      />
+                      <View style={styles.topographyView}>
+                        <Text>{t.key}</Text>
+                        <Text style={styles.ownerName}>by {t.ownerName}</Text>
+                      </View>
                     </Button>
                   ))}
                 </View>
@@ -95,13 +116,21 @@ export default class App extends React.Component {
                   {store.topologys.map(t => (
                     <Button
                       transparent
-                      key={t}
+                      key={t.key}
                       onPress={async () => {
-                        await store.loadTopology(t);
+                        await store.loadTopology(t.key);
                         closeDrawer();
                       }}
                     >
-                      <Text>{t}</Text>
+                      <Thumbnail
+                        small
+                        source={{ uri: t.ownerPic }}
+                        style={styles.thumbnail}
+                      />
+                      <View style={styles.topographyView}>
+                        <Text>{t.key}</Text>
+                        <Text style={styles.ownerName}>by {t.ownerName}</Text>
+                      </View>
                     </Button>
                   ))}
                 </View>
@@ -130,6 +159,13 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: "rgb(206, 44, 40)"
+  },
+  menuButton: {
+    color: "white",
+    paddingBottom: 14
+  },
   padded: {
     padding: 15
   },
@@ -138,14 +174,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   button: {
-    margin: 15
+    marginLeft: 15,
+    marginTop: 15
   },
   drawer: {
-    paddingTop: 20,
+    marginTop: Expo.Constants.statusBarHeight,
     height: "100%",
     backgroundColor: "white"
   },
   nameText: {
     paddingTop: 15
+  },
+  thumbnail: {
+    marginLeft: 15
+  },
+  topographyView: {
+    flexDirection: "column",
+    display: "flex",
+    paddingLeft: 5
+  },
+  ownerName: {
+    fontSize: 11
   }
 });
