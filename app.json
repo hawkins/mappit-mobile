@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "20.0.0"
+    "sdkVersion": "20.0.0",
+    "name": "Mappit",
+    "slug": "mappit",
+    "privacy": "unlisted",
+    "icon": "mappit.png",
+    "loading": {
+      "icon": "mappit.png",
+      "hideExponentText": true
+    }
   }
 }

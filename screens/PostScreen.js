@@ -90,7 +90,7 @@ export default class PostScreen extends React.Component {
 
 const styles = StyleSheet.create({
   banner: {
-    backgroundColor: "#3F51B5",
+    backgroundColor: "rgb(206, 44, 40)",
     padding: 16,
     marginTop: Constants.statusBarHeight
     // marginTop: Platform.OS === 'ios' ? 20 : 0,

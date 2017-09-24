@@ -7,7 +7,11 @@ import {
   Drawer,
   View,
   Icon,
-  Thumbnail
+  Thumbnail,
+  Header,
+  Left,
+  Right,
+  Body
 } from "native-base";
 import { StyleSheet, ScrollView } from "react-native";
 import { observer } from "mobx-react";
@@ -45,9 +49,15 @@ export default class App extends React.Component {
         content={
           <Container style={styles.drawer}>
             <ScrollView>
-              <Button transparent onPress={closeDrawer}>
-                <Icon name="menu" />
-              </Button>
+              <Header style={styles.banner}>
+                <Left>
+                  <Button transparent onPress={closeDrawer}>
+                    <Icon name="menu" style={styles.menuButton} />
+                  </Button>
+                </Left>
+                <Body />
+                <Right />
+              </Header>
 
               <Text style={styles.section}>My Profile</Text>
 
@@ -149,6 +159,13 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: "rgb(206, 44, 40)"
+  },
+  menuButton: {
+    color: "white",
+    paddingBottom: 14
+  },
   padded: {
     padding: 15
   },
