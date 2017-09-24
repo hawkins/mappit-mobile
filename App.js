@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 
 // Project Imports
 import HomeScreen from "./screens/HomeScreen";
+import PostScreen from "./screens/PostScreen";
 import Store from "./lib/store";
 
 const store = new Store();
@@ -79,11 +80,15 @@ export default class App extends React.Component {
         }
       >
         <Container>
-          <HomeScreen
-            openDrawer={openDrawer}
-            closeDrawer={closeDrawer}
-            store={store}
-          />
+          {/* My eyes are literally bleeding rn */}
+          {store.screen === "home" ? (
+            <HomeScreen
+              openDrawer={openDrawer}
+              closeDrawer={closeDrawer}
+              store={store}
+            />
+          ) : null}
+          {store.screen === "post" ? <PostScreen store={store} /> : null}
         </Container>
       </Drawer>
     );

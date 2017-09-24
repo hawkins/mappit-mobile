@@ -24,26 +24,32 @@ class HomeScreen extends React.Component {
             <Icon name="menu" style={{ color: "white" }} />
           </Button>
         </HomeBanner>
+
         <Container>
           <Map store={store} />
         </Container>
+
         <Fab
           active={this.state.active}
           direction="up"
-          containerStyle={{}}
           style={{ backgroundColor: "#5067FF" }}
           position="bottomRight"
           onPress={() => this.setState({ active: !this.state.active })}
         >
-          <Icon name="share" />
-          <Button style={{ backgroundColor: "#34A34F" }}>
-            <Icon name="logo-whatsapp" />
+          <Icon name="md-add" />
+          <Button
+            onPress={() => {
+              store.addingPin = !store.addingPin;
+              console.log("Adding pin:", store.addingPin);
+
+              store.screen = "post";
+            }}
+            style={{ backgroundColor: "#34A34F" }}
+          >
+            <Icon name="ios-pin" style={{ width: 13 }} />
           </Button>
-          <Button style={{ backgroundColor: "#3B5998" }}>
-            <Icon name="logo-facebook" />
-          </Button>
-          <Button disabled style={{ backgroundColor: "#DD5144" }}>
-            <Icon name="mail" />
+          <Button style={{ backgroundColor: "#DD5144" }}>
+            <Icon name="ios-list" style={{ width: 13 }} />
           </Button>
         </Fab>
       </Container>
